@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 import shutil
+from tqdm.notebook import tqdm
 
 
 def detector_evento(tipo="electron", size=64):
@@ -67,7 +68,7 @@ def experiment_CMS(output_dir="CMS_data", num_img=1000, size=64, zip_name="LHC_e
         os.makedirs(os.path.join(output_dir, c), exist_ok=True)
 
     for c in clases:
-        for i in range(num_img):
+        for i in tqdm(range(num_img), desc=f"Generando {c}"):
             img = detector_evento(c, size=size)
             plt.imsave(os.path.join(output_dir, c, f"{c}_{i}.png"), img, cmap="gray")
 
